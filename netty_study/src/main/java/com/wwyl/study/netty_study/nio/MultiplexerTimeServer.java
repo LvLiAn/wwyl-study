@@ -101,6 +101,7 @@ public class MultiplexerTimeServer implements Runnable{
                 SocketChannel socketChannel = (SocketChannel) key.channel();
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 int readBytes = socketChannel.read(buffer);
+                // 未考虑 数据大于byte，，读一半情况
                 if(readBytes > 0){
                     buffer.flip();
                     byte[] bytes = new byte[buffer.remaining()];
