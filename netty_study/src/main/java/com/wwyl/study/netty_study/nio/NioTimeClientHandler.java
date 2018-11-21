@@ -1,7 +1,6 @@
 package com.wwyl.study.netty_study.nio;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -97,6 +96,7 @@ public class NioTimeClientHandler implements Runnable{
                 ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
                 int reads = socketChannel.read(byteBuffer);
                 if(reads > 0){
+                    // 处理服务端返回信息
                     byteBuffer.flip();
                     byte[] bytes = new byte[byteBuffer.remaining()];
                     byteBuffer.get(bytes);
@@ -123,6 +123,11 @@ public class NioTimeClientHandler implements Runnable{
         }
     }
 
+    /**
+     *  客户端发送信息到服务端
+     * @param socketChannel
+     * @throws IOException
+     */
     private void doWrite(SocketChannel socketChannel) throws IOException {
         byte[] bytes = "QUERY TIME ORDER".getBytes("utf-8");
         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
