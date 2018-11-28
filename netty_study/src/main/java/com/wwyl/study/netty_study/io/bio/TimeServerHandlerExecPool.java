@@ -1,4 +1,4 @@
-package com.wwyl.study.netty_study.bio;
+package com.wwyl.study.netty_study.io.bio;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
