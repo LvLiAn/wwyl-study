@@ -14,15 +14,19 @@ import java.util.Date;
  */
 public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
+    private int counter;
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg;
-        byte[] req = new byte[byteBuf.readableBytes()];
-        byteBuf.readBytes(req);
+//        ByteBuf byteBuf = (ByteBuf) msg;
+//        byte[] req = new byte[byteBuf.readableBytes()];
+//        byteBuf.readBytes(req);
 
-        String body = new String(req,"utf-8").trim();
-        System.out.println("the netty time server recieve order is " + body);
+//        String body = new String(req,"utf-8").substring(0,req.length-System.getProperty("line.separator").length());
+        String body = (String)msg;
+        System.out.println("the netty time server recieve order is " + body +";and counter is:" + ++counter);
         String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body)? new Date(System.currentTimeMillis()).toString():"BAD ORDER";
+        currentTime = currentTime + System.getProperty("line.separator");
         System.out.println("The netty time server send currentTime:" + currentTime);
 
         ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());
